@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://cuxjkaru217k"]
+
+[ext_resource type="Script" uid="uid://b5h6qp6cisplf" path="res://cenas/main.gd" id="1_ehr76"]
+[ext_resource type="PackedScene" uid="uid://qaq6qse0h7xa" path="res://cenas/player.tscn" id="2_6agdy"]
+[ext_resource type="Texture2D" uid="uid://dak16cnfisn3s" path="res://Assents/IMG-20250307-WA0041 - Editado.jpg" id="2_ljx5j"]
+[ext_resource type="PackedScene" uid="uid://3ydyn07d2apm" path="res://cenas/linha_chegada.tscn" id="3_usge6"]
+[ext_resource type="PackedScene" uid="uid://n4bj6xbbv7sq" path="res://cenas/hud.tscn" id="5_yaytn"]
+[ext_resource type="AudioStream" uid="uid://bwtlwgdehck1a" path="res://Material Freeway/sons/tema.wav" id="6_a533d"]
+[ext_resource type="AudioStream" uid="uid://ef8yyaex0dhr" path="res://Material Freeway/sons/ponto.wav" id="7_k0ded"]
+[ext_resource type="AudioStream" uid="uid://dq12p6u5ecwg6" path="res://Material Freeway/sons/ganhou.wav" id="8_25l6f"]
+[ext_resource type="PackedScene" uid="uid://du2kkqc5r546j" path="res://cenas/player_2.tscn" id="9_a6h2j"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_ehr76")
+
+[node name="Pista" type="Sprite2D" parent="."]
+texture = ExtResource("2_ljx5j")
+centered = false
+
+[node name="Player" parent="." instance=ExtResource("2_6agdy")]
+position = Vector2(369, 696)
+
+[node name="LinhaChegada" parent="." instance=ExtResource("3_usge6")]
+position = Vector2(640, 64)
+
+[node name="HUD" parent="." instance=ExtResource("5_yaytn")]
+
+[node name="TimerCarrosRapidos" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[node name="TimerCarrosLentos" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="AudioTema" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_a533d")
+
+[node name="AudioPonto" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_k0ded")
+
+[node name="AudioVitoria" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_25l6f")
+
+[node name="Player2" parent="." instance=ExtResource("9_a6h2j")]
+position = Vector2(869, 696)
+
+[node name="TimerGame" type="Timer" parent="."]
+wait_time = 136.0
+
+[connection signal="pontua" from="Player" to="." method="_on_player_pontua"]
+[connection signal="reinicia" from="HUD" to="." method="_on_hud_reinicia"]
+[connection signal="timeout" from="TimerCarrosRapidos" to="." method="_on_timer_carros_rapidos_timeout"]
+[connection signal="timeout" from="TimerCarrosLentos" to="." method="_on_timer_carros_lentos_timeout"]
+[connection signal="finished" from="AudioTema" to="." method="_on_audio_tema_finished"]
+[connection signal="body_entered" from="Player2" to="." method="_on_player_2_body_entered"]
+[connection signal="pontua2" from="Player2" to="." method="_on_player_2_pontua_2"]
+[connection signal="timeout" from="TimerGame" to="." method="_on_timer_game_timeout"]

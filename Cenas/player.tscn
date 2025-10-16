@@ -1,0 +1,84 @@
+[gd_scene load_steps=16 format=3 uid="uid://qaq6qse0h7xa"]
+
+[ext_resource type="Script" uid="uid://d3oexyvbrl7mq" path="res://cenas/player.gd" id="1_alj8m"]
+[ext_resource type="Texture2D" uid="uid://c3u8h58uuvnsm" path="res://Assents/41765d3d-69fa-4766-98e9-d38bc355ad0e.png" id="2_2e3on"]
+[ext_resource type="Texture2D" uid="uid://dxjhf28y4go4e" path="res://Assents/302ee907-eb8b-4390-8ecd-33f1f3521b36.png" id="3_b8vbd"]
+[ext_resource type="Texture2D" uid="uid://beoit5h6p716v" path="res://Assents/bf2be93d-2417-491a-8faf-49e72ecc7fff.png" id="4_my8cs"]
+[ext_resource type="Texture2D" uid="uid://dmemd3055pc06" path="res://Assents/09218641-0de5-435d-8d49-210a032dba8e.png" id="5_3p3rj"]
+[ext_resource type="Texture2D" uid="uid://cjfunq8g6l54e" path="res://Assents/2ffb6673-2078-4b09-9bfe-7c099fd29124.png" id="6_6y2if"]
+[ext_resource type="AudioStream" uid="uid://bwi3mem8w5s65" path="res://Material Freeway/sons/colide.wav" id="8_y78dd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xswo"]
+atlas = ExtResource("2_2e3on")
+region = Rect2(0, 0, 96, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6uvr"]
+atlas = ExtResource("3_b8vbd")
+region = Rect2(0, 0, 96, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p30sd"]
+atlas = ExtResource("4_my8cs")
+region = Rect2(0, 0, 96, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8rr0"]
+atlas = ExtResource("5_3p3rj")
+region = Rect2(0, 0, 102, 138)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dc6ig"]
+atlas = ExtResource("5_3p3rj")
+region = Rect2(0, 0, 102, 138)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f48sw"]
+atlas = ExtResource("6_6y2if")
+region = Rect2(0, 0, 102, 138)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ysc70"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xswo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6uvr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p30sd")
+}],
+"loop": true,
+"name": &"baixo",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8rr0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dc6ig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f48sw")
+}],
+"loop": true,
+"name": &"cima",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_awnms"]
+radius = 14.0
+
+[node name="Player1" type="Area2D"]
+script = ExtResource("1_alj8m")
+
+[node name="Animacao" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_ysc70")
+animation = &"cima"
+
+[node name="Colisao" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_awnms")
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(173, 200)
+stream = ExtResource("8_y78dd")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

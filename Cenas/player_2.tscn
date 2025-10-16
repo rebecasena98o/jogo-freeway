@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=3 uid="uid://du2kkqc5r546j"]
+
+[ext_resource type="Script" uid="uid://bnbdlemaforsn" path="res://cenas/player_2.gd" id="1_omp8x"]
+[ext_resource type="Texture2D" uid="uid://cho8jomlp54dr" path="res://Assents/base_teste_freeway_copia.png" id="2_mbtlt"]
+[ext_resource type="AudioStream" uid="uid://bwi3mem8w5s65" path="res://Material Freeway/sons/colide.wav" id="8_joufa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pc1b"]
+atlas = ExtResource("2_mbtlt")
+region = Rect2(10, 0, 209, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rlt37"]
+atlas = ExtResource("2_mbtlt")
+region = Rect2(229, 0, 209, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0a2ww"]
+atlas = ExtResource("2_mbtlt")
+region = Rect2(448, 0, 209, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvybk"]
+atlas = ExtResource("2_mbtlt")
+region = Rect2(10, 227, 209, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbqv6"]
+atlas = ExtResource("2_mbtlt")
+region = Rect2(229, 227, 209, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vhblh"]
+atlas = ExtResource("2_mbtlt")
+region = Rect2(448, 227, 209, 217)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x5iip"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pc1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rlt37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0a2ww")
+}],
+"loop": true,
+"name": &"Baixo",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvybk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jbqv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vhblh")
+}],
+"loop": true,
+"name": &"Cima",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_buiqd"]
+radius = 13.0
+
+[node name="Player2" type="Area2D"]
+script = ExtResource("1_omp8x")
+
+[node name="Animacao2" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, 11.775)
+scale = Vector2(0.3, 0.302074)
+sprite_frames = SubResource("SpriteFrames_x5iip")
+animation = &"Cima"
+
+[node name="Audio2" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 3)
+stream = ExtResource("8_joufa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 3)
+shape = SubResource("CircleShape2D_buiqd")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
